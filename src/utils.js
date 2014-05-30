@@ -388,17 +388,8 @@ ko.utils = (function () {
             if ((value === null) || (value === undefined))
                 value = "";
 
-            // We need there to be exactly one child: a text node.
-            // If there are no children, more than one, or if it's not a text node,
-            // we'll clear everything and create a single text node.
-            var innerTextNode = ko.virtualElements.firstChild(element);
-            if (!innerTextNode || innerTextNode.nodeType != 3 || ko.virtualElements.nextSibling(innerTextNode)) {
-                ko.virtualElements.setDomNodeChildren(element, [element.ownerDocument.createTextNode(value)]);
-            } else {
-                innerTextNode.data = value;
-            }
-
-            ko.utils.forceRefresh(element);
+            // jQuery contains a proper implementation...
+            $(element).text(value);
         },
 
         setElementName: function(element, name) {
